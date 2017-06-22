@@ -40,7 +40,7 @@ class Pipeline
         if(null != $payload) {
             foreach ($this->stages as $stage) {
                 if(is_callable($stage)) {
-                    $payload = $stage($payload);
+                    $payload = is_array($payload) ? array_map($stage, $payload) : $stage($payload);
                 }
             }
             return $payload;
